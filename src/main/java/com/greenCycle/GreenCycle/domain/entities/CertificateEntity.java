@@ -1,4 +1,4 @@
-package com.greenCycle.GreenCycle.domain;
+package com.greenCycle.GreenCycle.domain.entities;
 
 import java.time.LocalDate;
 

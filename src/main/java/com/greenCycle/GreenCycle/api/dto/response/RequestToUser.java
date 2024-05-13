@@ -2,7 +2,7 @@ package com.greenCycle.GreenCycle.api.dto.response;
 
 import java.time.LocalDateTime;
 
-import com.greenCycle.GreenCycle.domain.CertificateEntity;
+import com.greenCycle.GreenCycle.domain.entities.CertificateEntity;
 import com.greenCycle.GreenCycle.util.enums.StatusRequest;
 
 import lombok.AllArgsConstructor;

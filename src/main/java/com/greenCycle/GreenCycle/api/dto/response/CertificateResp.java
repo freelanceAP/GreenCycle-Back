@@ -2,7 +2,7 @@ package com.greenCycle.GreenCycle.api.dto.response;
 
 import java.time.LocalDate;
 
-import com.greenCycle.GreenCycle.domain.RequestEntity;
+import com.greenCycle.GreenCycle.domain.entities.RequestEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
