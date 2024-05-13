@@ -1,8 +1,8 @@
-package com.greecycle.greencycle.domain.entities;
+package com.greenCycle.GreenCycle.domain;
 
 import java.util.List;
 
-import com.greecycle.greencycle.utils.enums.RoleUser;
+import com.greenCycle.GreenCycle.util.enums.RoleUser;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

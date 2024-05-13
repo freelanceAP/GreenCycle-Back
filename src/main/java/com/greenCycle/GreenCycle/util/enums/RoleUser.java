@@ -1,4 +1,4 @@
-package com.greecycle.greencycle.utils.enums;
+package com.greenCycle.GreenCycle.util.enums;
 
 public enum RoleUser {
  ADMINISTRATOR, CLIENT

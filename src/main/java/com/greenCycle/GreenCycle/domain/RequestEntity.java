@@ -1,8 +1,8 @@
-package com.greecycle.greencycle.domain.entities;
+package com.greenCycle.GreenCycle.domain;
 
 import java.time.LocalDateTime;
 
-import com.greecycle.greencycle.utils.enums.StatusRequest;
+import com.greenCycle.GreenCycle.util.enums.StatusRequest;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
