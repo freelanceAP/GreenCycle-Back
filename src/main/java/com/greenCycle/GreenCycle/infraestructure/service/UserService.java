@@ -2,6 +2,8 @@ package com.greenCycle.GreenCycle.infraestructure.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.greenCycle.GreenCycle.api.dto.request.UserReq;
@@ -18,14 +20,14 @@ import lombok.AllArgsConstructor;
 @Transactional
 @AllArgsConstructor
 public class UserService implements IUserService {
-    
+
     @Autowired
     private final UserRepository userRepository;
-    
+
     @Override
     public UserResp create(UserReq request) {
 
-       UserEntity entity = this.requestToEntity(request);
+        UserEntity entity = this.requestToEntity(request);
 
         return this.entityToResponse(this.userRepository.save(entity));
     }
@@ -50,42 +52,49 @@ public class UserService implements IUserService {
 
     @Override
     public Page<UserResp> getAll(int page, int size, SortType sortType) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+
+        if (page < 0)
+            page = 0;
+
+        PageRequest pagination = null;
+        switch (sortType) {
+            case NONE -> pagination = PageRequest.of(page, size);
+            case ASC -> pagination = PageRequest.of(page, size, Sort.by(FIELD_BY_SORT).ascending());
+            case DESC -> pagination = PageRequest.of(page, size, Sort.by(FIELD_BY_SORT).descending());
+        }
+
+        return this.userRepository.findAll(pagination).map(this::entityToResponse);
     }
 
-    private UserResp entityToResponse(UserEntity entity){
+    private UserResp entityToResponse(UserEntity entity) {
         return UserResp.builder()
-        .id(entity.getId())
-        .userName(entity.getUserName())
-        .email(entity.getEmail())
-        .password(entity.getPassword())
-        .role(entity.getRole())
-        .nit(entity.getNit())
-        .address(entity.getAddress())
-        .phone(entity.getPhone())
-        .description(entity.getDescription())
-        .target(entity.getTarget())
-        .targetProgress(entity.getTargetProgress())
-        .build();
+                .id(entity.getId())
+                .userName(entity.getUserName())
+                .email(entity.getEmail())
+                .role(entity.getRole())
+                .nit(entity.getNit())
+                .address(entity.getAddress())
+                .phone(entity.getPhone())
+                .description(entity.getDescription())
+                .target(entity.getTarget())
+                .targetProgress(entity.getTargetProgress())
+                .build();
 
     }
 
-
-    private UserEntity requestToEntity(UserReq request){
+    private UserEntity requestToEntity(UserReq request) {
         return UserEntity.builder()
-        .userName(request.getUserName())
-        .email(request.getEmail())
-        .password(request.getPassword())
-        .role(request.getRole())
-        .nit(request.getNit())
-        .address(request.getAddress())
-        .phone(request.getPhone())
-        .description(request.getDescription())
-        .target(request.getTarget())
-        .targetProgress(request.getTargetProgress())
-        .build();
+                .userName(request.getUserName())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .role(request.getRole())
+                .nit(request.getNit())
+                .address(request.getAddress())
+                .phone(request.getPhone())
+                .description(request.getDescription())
+                .target(request.getTarget())
+                .targetProgress(request.getTargetProgress())
+                .build();
     }
 
- 
 }
