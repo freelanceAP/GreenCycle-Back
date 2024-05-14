@@ -23,7 +23,7 @@ public class RequestReq {
     private String quantityUnit;
     @NotBlank(message = "Especifique el tipo de residuo.")
     private String typeWaste;
-    @NotBlank(message = "Especifique la descripción.")
+    @NotBlank(message = "Hace falta la descripción.")
     private String description;
     @NotNull(message = "Especifique la fecha y la hora.")
     @FutureOrPresent(message = "La fecha no puede ser inferior a la actual.")
