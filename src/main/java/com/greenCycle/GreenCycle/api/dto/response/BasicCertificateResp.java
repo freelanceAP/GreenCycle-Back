@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class CertificateResp {
+public class BasicCertificateResp {
     private long id;
     private LocalDate dateTime;
-    private RequestRespToCertificateResp request;
+    private String description; 
 }

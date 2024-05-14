@@ -32,11 +32,11 @@ public class RequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String quantityUnit;
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String typeWaste;
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String description;
     @Column(nullable = false)
     private LocalDateTime dateTime;

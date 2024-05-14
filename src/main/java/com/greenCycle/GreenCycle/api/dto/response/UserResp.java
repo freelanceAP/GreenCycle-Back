@@ -19,7 +19,6 @@ public class UserResp {
     private long id;
     private String userName;
     private String email;
-    // private String password;
     private RoleUser role;
     private long nit;
     private String address;

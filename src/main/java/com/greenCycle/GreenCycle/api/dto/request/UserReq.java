@@ -28,17 +28,14 @@ public class UserReq {
     private String email;
     @NotBlank(message = "Especifique un rol.")
     private RoleUser role;
-    @NotBlank(message = "Especifique un NIT")
+    @NotNull(message = "Especifique un NIT")
     @Size(
         min = 10, 
         max = 20,
         message = "El NIT debe tener entre 10 y 20 caracteres."
     )
-
-    @NotBlank(message = "Especifique un rol.")
-    
-    private String password;
     private long nit;
+    private String password;
     @NotBlank(message = "Especifique una dirección.")
     private String address;
     @Size(

@@ -77,7 +77,7 @@ public class UserService implements IUserService {
         
         // List<RequestEntity> requestEntity = entity.getRequests();
 
-        
+
         List<RequestRespToUserResp> list = entity.getRequests().stream().map(this::requestEntityToResquesRespToUserResp).collect(Collectors.toList());
 
         return UserResp.builder()
@@ -120,9 +120,5 @@ public class UserService implements IUserService {
                 .build();
     }
 
-    private RequestRespToUserResp entityToResponseRequest(RequestEntity entity){
-        return RequestRespToUserResp.builder()
-
-    }
 
 }

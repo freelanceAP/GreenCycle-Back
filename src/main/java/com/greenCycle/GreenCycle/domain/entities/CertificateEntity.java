@@ -2,6 +2,8 @@ package com.greenCycle.GreenCycle.domain.entities;
 
 import java.time.LocalDate;
 
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,6 +28,8 @@ public class CertificateEntity {
     private long id;
     @Column(nullable = false)
     private LocalDate dateTime;
+    @Column(length = 100, nullable = false)
+    private String description; 
     
     /*RELACIONES*/
     //Un certificado puede tener una solicitud
