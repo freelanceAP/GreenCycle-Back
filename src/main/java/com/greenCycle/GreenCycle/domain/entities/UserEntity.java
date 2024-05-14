@@ -60,5 +60,5 @@ public class UserEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<RequestEntity> requests;
+    private List<RequestEntity> requests; //Lista de las solicitudes que tiene el usuario 
 }
