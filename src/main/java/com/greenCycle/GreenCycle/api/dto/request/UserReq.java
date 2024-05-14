@@ -36,8 +36,8 @@ public class UserReq {
     )
 
     @NotBlank(message = "Especifique un rol.")
+    
     private String password;
-
     private long nit;
     @NotBlank(message = "Especifique una dirección.")
     private String address;

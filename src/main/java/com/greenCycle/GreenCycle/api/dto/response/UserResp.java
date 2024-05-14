@@ -1,5 +1,6 @@
 package com.greenCycle.GreenCycle.api.dto.response;
 
+
 import java.util.List;
 
 import com.greenCycle.GreenCycle.util.enums.RoleUser;
@@ -26,5 +27,5 @@ public class UserResp {
     private String description;
     private long target;
     private long targetProgress;
-    private List<RequestToUser> requests;
+    private List<RequestRespToUserResp> requests;
 }
