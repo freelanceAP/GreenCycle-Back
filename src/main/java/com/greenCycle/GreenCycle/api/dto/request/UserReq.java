@@ -34,6 +34,10 @@ public class UserReq {
         max = 20,
         message = "El NIT debe tener entre 10 y 20 caracteres."
     )
+
+    @NotBlank(message = "Especifique un rol.")
+    private String password;
+
     private long nit;
     @NotBlank(message = "Especifique una dirección.")
     private String address;
