@@ -25,4 +25,5 @@ public class RequestResp {
     private  CertificateEntity certificate; 
     //Se usa BasicUserResp en vez de UserEntity
     private BasicUserResp user;  //->Muestra unicamente la informacion basica del usuario, asociada a la solicitud
+
 }
