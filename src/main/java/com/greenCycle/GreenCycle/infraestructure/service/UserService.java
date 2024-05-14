@@ -1,5 +1,9 @@
 package com.greenCycle.GreenCycle.infraestructure.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -7,7 +11,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.greenCycle.GreenCycle.api.dto.request.UserReq;
+import com.greenCycle.GreenCycle.api.dto.response.CertificateResp;
+import com.greenCycle.GreenCycle.api.dto.response.RequestRespToUserResp;
 import com.greenCycle.GreenCycle.api.dto.response.UserResp;
+import com.greenCycle.GreenCycle.domain.entities.RequestEntity;
 import com.greenCycle.GreenCycle.domain.entities.UserEntity;
 import com.greenCycle.GreenCycle.domain.repositories.UserRepository;
 import com.greenCycle.GreenCycle.infraestructure.abstract_services.IUserService;
@@ -67,6 +74,12 @@ public class UserService implements IUserService {
     }
 
     private UserResp entityToResponse(UserEntity entity) {
+        
+        // List<RequestEntity> requestEntity = entity.getRequests();
+
+        
+        List<RequestRespToUserResp> list = entity.getRequests().stream().map(this::requestEntityToResquesRespToUserResp).collect(Collectors.toList());
+
         return UserResp.builder()
                 .id(entity.getId())
                 .userName(entity.getUserName())
@@ -78,8 +91,18 @@ public class UserService implements IUserService {
                 .description(entity.getDescription())
                 .target(entity.getTarget())
                 .targetProgress(entity.getTargetProgress())
+                .requests(list)
                 .build();
 
+    }
+
+    private RequestRespToUserResp requestEntityToResquesRespToUserResp(RequestEntity entity){
+        RequestRespToUserResp response = new RequestRespToUserResp();
+        CertificateResp certResp = new CertificateResp();
+        BeanUtils.copyProperties(entity.getCertificate(), certResp);
+        BeanUtils.copyProperties(entity, response);
+        response.setCertificate(certResp);
+        return response;
     }
 
     private UserEntity requestToEntity(UserReq request) {
@@ -95,6 +118,11 @@ public class UserService implements IUserService {
                 .target(request.getTarget())
                 .targetProgress(request.getTargetProgress())
                 .build();
+    }
+
+    private RequestRespToUserResp entityToResponseRequest(RequestEntity entity){
+        return RequestRespToUserResp.builder()
+
     }
 
 }
