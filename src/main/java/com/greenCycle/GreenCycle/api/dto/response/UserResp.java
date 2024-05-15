@@ -20,7 +20,7 @@ public class UserResp {
     private String userName;
     private String email;
     private RoleUser role;
-    private long nit;
+    private String nit;
     private String address;
     private String phone;
     private String description;

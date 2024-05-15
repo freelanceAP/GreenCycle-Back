@@ -21,5 +21,5 @@ public class RequestRespToUserResp {
     private String description;
     private LocalDateTime dateTime;
     private StatusRequest status;
-    private  CertificateResp certificate; 
+    private BasicCertificateResp certificate; 
 }

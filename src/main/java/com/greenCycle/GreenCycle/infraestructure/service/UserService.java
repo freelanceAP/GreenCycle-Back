@@ -1,8 +1,10 @@
 package com.greenCycle.GreenCycle.infraestructure.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.greenCycle.GreenCycle.api.dto.request.UserReq;
+import com.greenCycle.GreenCycle.api.dto.response.BasicCertificateResp;
 import com.greenCycle.GreenCycle.api.dto.response.CertificateResp;
 import com.greenCycle.GreenCycle.api.dto.response.RequestRespToUserResp;
 import com.greenCycle.GreenCycle.api.dto.response.UserResp;
@@ -32,29 +35,40 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
 
     @Override
+    // Cre crea metodo publico lpara crear
     public UserResp create(UserReq request) {
 
+        // Se llama al metodo que convierte la resquest en respuesta
+        // y al metodo que busca por id para saber cual se va listar
         UserEntity entity = this.requestToEntity(request);
-
         return this.entityToResponse(this.userRepository.save(entity));
     }
 
+    // Metodo para listar por ID
     @Override
     public UserResp get(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        // Se llama al metodo que convierte la entidad en respuesta
+        // y al metodo que busca por id para saber cual se va listar
+        return this.entityToResponse(this.find(id));
     }
 
     @Override
     public UserResp update(UserReq request, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+
+        UserEntity user = this.find(id);
+
+        UserEntity userUpdate = this.requestToEntity(request);
+        userUpdate.setId(user.getId());
+        userUpdate.setRequests(user.getRequests());
+
+        return this.entityToResponse(this.userRepository.save(userUpdate));
     }
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        UserEntity user = this.find(id);
+        this.userRepository.delete(user);
+
     }
 
     @Override
@@ -74,11 +88,9 @@ public class UserService implements IUserService {
     }
 
     private UserResp entityToResponse(UserEntity entity) {
-        
-        // List<RequestEntity> requestEntity = entity.getRequests();
 
-
-        List<RequestRespToUserResp> list = entity.getRequests().stream().map(this::requestEntityToResquesRespToUserResp).collect(Collectors.toList());
+        List<RequestRespToUserResp> list = entity.getRequests().stream().map(this::requestEntityToResquesRespToUserResp)
+                .collect(Collectors.toList());
 
         return UserResp.builder()
                 .id(entity.getId())
@@ -96,9 +108,9 @@ public class UserService implements IUserService {
 
     }
 
-    private RequestRespToUserResp requestEntityToResquesRespToUserResp(RequestEntity entity){
+    private RequestRespToUserResp requestEntityToResquesRespToUserResp(RequestEntity entity) {
         RequestRespToUserResp response = new RequestRespToUserResp();
-        CertificateResp certResp = new CertificateResp();
+        BasicCertificateResp certResp = new BasicCertificateResp();
         BeanUtils.copyProperties(entity.getCertificate(), certResp);
         BeanUtils.copyProperties(entity, response);
         response.setCertificate(certResp);
@@ -106,19 +118,30 @@ public class UserService implements IUserService {
     }
 
     private UserEntity requestToEntity(UserReq request) {
-        return UserEntity.builder()
-                .userName(request.getUserName())
-                .email(request.getEmail())
-                .password(request.getPassword())
-                .role(request.getRole())
-                .nit(request.getNit())
-                .address(request.getAddress())
-                .phone(request.getPhone())
-                .description(request.getDescription())
-                .target(request.getTarget())
-                .targetProgress(request.getTargetProgress())
-                .build();
+        List<RequestEntity> list = new ArrayList<>();
+        UserEntity entity = new UserEntity();
+        BeanUtils.copyProperties(request, entity);
+        entity.setRequests(list);
+
+        return entity;
+        // return UserEntity.builder()
+        // .userName(request.getUserName())
+        // .email(request.getEmail())
+        // .password(request.getPassword())
+        // .role(request.getRole())
+        // .nit(request.getNit())
+        // .address(request.getAddress())
+        // .phone(request.getPhone())
+        // .description(request.getDescription())
+        // .target(request.getTarget())
+        // .targetProgress(request.getTargetProgress())
+        // .requests(list)
+        // .build();
+
     }
 
+    private UserEntity find(Long id) {
+        return this.userRepository.findById(id).orElseThrow();
+    }
 
 }
