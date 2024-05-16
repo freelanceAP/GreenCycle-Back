@@ -40,7 +40,7 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private RoleUser role;
     @Column(length = 20, nullable = false)
-    private long nit;
+    private String nit;
     @Column(length = 100)
     private String address;
     @Column(length = 20)
