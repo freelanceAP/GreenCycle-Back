@@ -15,5 +15,5 @@ import lombok.NoArgsConstructor;
 public class BasicCertificateResp {
     private long id;
     private LocalDate dateTime;
-    private String description; 
+    private String description;
 }

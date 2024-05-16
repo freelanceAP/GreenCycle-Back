@@ -59,6 +59,6 @@ public class UserEntity {
     //Un usuario puede tener muchas solicitudes
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = false)
     private List<RequestEntity> requests; //Lista de las solicitudes que tiene el usuario 
 }

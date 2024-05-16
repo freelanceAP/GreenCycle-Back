@@ -3,8 +3,6 @@ package com.greenCycle.GreenCycle.api.dto.request;
 import com.greenCycle.GreenCycle.util.enums.RoleUser;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

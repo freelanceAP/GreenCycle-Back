@@ -45,11 +45,11 @@ public class RequestEntity {
 
     /*RELACIONES*/
     //Una solicitud puede tener un certificado
-    @OneToOne(mappedBy = "request", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "request", fetch = FetchType.LAZY)
     private  CertificateEntity certificate; 
 
     //Muchas solicitudes puede tener un usuario
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user; 
 }

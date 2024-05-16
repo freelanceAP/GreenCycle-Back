@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.greenCycle.GreenCycle.api.dto.request.UserReq;
 import com.greenCycle.GreenCycle.api.dto.response.BasicCertificateResp;
-import com.greenCycle.GreenCycle.api.dto.response.CertificateResp;
 import com.greenCycle.GreenCycle.api.dto.response.RequestRespToUserResp;
 import com.greenCycle.GreenCycle.api.dto.response.UserResp;
 import com.greenCycle.GreenCycle.domain.entities.RequestEntity;
@@ -41,6 +39,7 @@ public class UserService implements IUserService {
         // Se llama al metodo que convierte la resquest en respuesta
         // y al metodo que busca por id para saber cual se va listar
         UserEntity entity = this.requestToEntity(request);
+        entity.setRequests(new ArrayList<>());
         return this.entityToResponse(this.userRepository.save(entity));
     }
 
@@ -111,7 +110,10 @@ public class UserService implements IUserService {
     private RequestRespToUserResp requestEntityToResquesRespToUserResp(RequestEntity entity) {
         RequestRespToUserResp response = new RequestRespToUserResp();
         BasicCertificateResp certResp = new BasicCertificateResp();
-        BeanUtils.copyProperties(entity.getCertificate(), certResp);
+        if (entity.getCertificate() != null) {
+            BeanUtils.copyProperties(entity.getCertificate(), certResp);
+
+        }
         BeanUtils.copyProperties(entity, response);
         response.setCertificate(certResp);
         return response;
