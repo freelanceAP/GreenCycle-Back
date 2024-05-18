@@ -84,6 +84,7 @@ public class RequestService implements IRequestService {
 
         BasicUserResp basicUser = this.EntityBasicToUserResp(entity.getUser());
         RequestResp requestResp = new RequestResp();
+        
         BeanUtils.copyProperties(entity, requestResp);
         requestResp.setUser(basicUser);
 
