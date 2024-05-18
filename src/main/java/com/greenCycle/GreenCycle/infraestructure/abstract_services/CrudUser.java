@@ -6,7 +6,7 @@ import com.greenCycle.GreenCycle.util.enums.SortType;
 
 public interface CrudUser<RQ, RS, ID> {
     
-        public RS create(RQ request);
+    public RS create(RQ request);
 
     public RS get(ID id);
 

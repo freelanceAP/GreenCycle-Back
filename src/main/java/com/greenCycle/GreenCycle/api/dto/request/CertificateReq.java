@@ -20,4 +20,5 @@ public class CertificateReq {
     private LocalDate dateTime;
     @NotBlank(message = "Hace falta la una descripción")
     private String description; 
+    private Long request;
 }

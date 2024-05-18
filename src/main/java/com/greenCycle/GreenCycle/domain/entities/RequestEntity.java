@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import com.greenCycle.GreenCycle.util.enums.StatusRequest;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

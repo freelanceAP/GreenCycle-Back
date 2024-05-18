@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,8 @@ import com.greenCycle.GreenCycle.domain.entities.UserEntity;
 import com.greenCycle.GreenCycle.domain.repositories.UserRepository;
 import com.greenCycle.GreenCycle.infraestructure.abstract_services.IUserService;
 import com.greenCycle.GreenCycle.util.enums.SortType;
+import com.greenCycle.GreenCycle.util.enums.exception.BadRequestException;
+import com.greenCycle.GreenCycle.util.enums.messages.ErrorMessages;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -143,7 +146,7 @@ public class UserService implements IUserService {
     }
 
     private UserEntity find(Long id) {
-        return this.userRepository.findById(id).orElseThrow();
+        return this.userRepository.findById(id).orElseThrow(() -> new BadRequestException(ErrorMessages.idNotFound("usuario")));
     }
 
 }

@@ -16,6 +16,8 @@ import com.greenCycle.GreenCycle.domain.repositories.RequestRepository;
 import com.greenCycle.GreenCycle.domain.repositories.UserRepository;
 import com.greenCycle.GreenCycle.infraestructure.abstract_services.IRequestService;
 import com.greenCycle.GreenCycle.util.enums.SortType;
+import com.greenCycle.GreenCycle.util.enums.exception.BadRequestException;
+import com.greenCycle.GreenCycle.util.enums.messages.ErrorMessages;
 
 import lombok.AllArgsConstructor;
 
@@ -53,10 +55,6 @@ public class RequestService implements IRequestService {
         // userUpdate.setCertificate(user.getCertificate());
 
         return this.entityToResponse(this.requestRepository.save(userUpdate));
-
-
-     
-
     }
 
     @Override
@@ -116,7 +114,7 @@ public class RequestService implements IRequestService {
     }
 
     private RequestEntity find(Long id) {
-        return this.requestRepository.findById(id).orElseThrow();
+        return this.requestRepository.findById(id).orElseThrow(() -> new BadRequestException(ErrorMessages.idNotFound("Request")));
     }
 
 }

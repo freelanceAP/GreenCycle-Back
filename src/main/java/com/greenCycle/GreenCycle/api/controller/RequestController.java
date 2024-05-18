@@ -30,6 +30,7 @@ public class RequestController {
 
     private final IRequestService requestService;
 
+    // Anotacion para obtener
     @GetMapping(path = "/{id}")
     public ResponseEntity<RequestResp> getById(
             @PathVariable("id") Long id) {
@@ -38,6 +39,7 @@ public class RequestController {
         return ResponseEntity.ok(this.requestService.get(id));
     }
 
+    // Anotacion para obtener
     @GetMapping
     public ResponseEntity<Page<RequestResp>> getAll(
             @RequestParam(defaultValue = "1") int page,
@@ -61,6 +63,7 @@ public class RequestController {
         return ResponseEntity.ok(this.requestService.create(request));
     }
 
+    // Anotacion para actualizar
     @PutMapping(path = "/{id}")
     public ResponseEntity<RequestResp> update(
             @Validated @RequestBody RequestReq request,
