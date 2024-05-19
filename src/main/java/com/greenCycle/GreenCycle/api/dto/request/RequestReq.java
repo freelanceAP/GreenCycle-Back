@@ -3,6 +3,7 @@ package com.greenCycle.GreenCycle.api.dto.request;
 import java.time.LocalDateTime;
 
 import com.greenCycle.GreenCycle.util.enums.StatusRequest;
+import com.greenCycle.GreenCycle.util.enums.TypeWaste;
 
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
@@ -21,8 +22,8 @@ public class RequestReq {
 
     @NotBlank(message = "Especifique la cantidad unitaria del residuo.")
     private String quantityUnit;
-    @NotBlank(message = "Especifique el tipo de residuo.")
-    private String typeWaste;
+    @NotNull(message = "Especifique el tipo de residuo.")
+    private TypeWaste typeWaste;
     @NotBlank(message = "Hace falta la descripción.")
     private String description;
     @NotNull(message = "Especifique la fecha y la hora.")
@@ -31,4 +32,6 @@ public class RequestReq {
     @NotNull(message = "Especifique el estado")
     private StatusRequest status;
     private Long userId;
+    @NotBlank(message = "Especifique la dirección de recogida")
+    private String pickupAddress;
 }

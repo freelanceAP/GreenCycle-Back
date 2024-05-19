@@ -3,6 +3,7 @@ package com.greenCycle.GreenCycle.domain.entities;
 import java.time.LocalDateTime;
 
 import com.greenCycle.GreenCycle.util.enums.StatusRequest;
+import com.greenCycle.GreenCycle.util.enums.TypeWaste;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,13 +35,16 @@ public class RequestEntity {
     @Column(length = 100, nullable = false)
     private String quantityUnit;
     @Column(length = 100, nullable = false)
-    private String typeWaste;
+    @Enumerated(EnumType.STRING)
+    private TypeWaste typeWaste;
     @Column(length = 100, nullable = false)
     private String description;
     @Column(nullable = false)
     private LocalDateTime dateTime;
     @Enumerated(EnumType.STRING)
     private StatusRequest status;
+    @Column(length = 100)
+    private String pickupAddress; //Dirección de recogida
 
     /*RELACIONES*/
     //Una solicitud puede tener un certificado

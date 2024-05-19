@@ -34,7 +34,7 @@ import lombok.AllArgsConstructor;
 public class RequestController {
 
     private final IRequestService requestService;
-   
+
     // Anotacion para obtener
     @GetMapping(path = "/{id}")
     public ResponseEntity<RequestResp> getById(
@@ -87,12 +87,21 @@ public class RequestController {
         return ResponseEntity.noContent().build();
     }
 
-    //Obtener solicitudes de los ultimos cinco meses 
+    // Obtener solicitudes de los ultimos cinco meses
     @GetMapping("/last-five-months")
     public ResponseEntity<List<SummaryReq>> getRequestsForLastFiveMonths() {
         List<SummaryReq> requestSummaries = requestService.getRequestsForLastFiveMonths();
         return ResponseEntity.ok(requestSummaries);
     }
-    
+
+    @GetMapping("/last-five-months/{id}")
+    public ResponseEntity<List<SummaryReq>> getRequestsForLastFiveMonthsById(@PathVariable Long id) {
+        List<SummaryReq> generalRequests = requestService.getRequestsForLastFiveMonths();
+        List<SummaryReq> requestsById = requestService.getRequestsForLastFiveMonthsById(id);
+        
+        generalRequests.addAll(requestsById); // Combinar ambas listas
+        
+        return ResponseEntity.ok(generalRequests);
+    }
 
 }
