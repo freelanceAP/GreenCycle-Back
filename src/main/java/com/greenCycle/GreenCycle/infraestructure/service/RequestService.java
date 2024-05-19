@@ -1,5 +1,11 @@
 package com.greenCycle.GreenCycle.infraestructure.service;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.greenCycle.GreenCycle.api.dto.request.RequestReq;
+import com.greenCycle.GreenCycle.api.dto.request.SummaryReq;
 import com.greenCycle.GreenCycle.api.dto.response.BasicUserResp;
 import com.greenCycle.GreenCycle.api.dto.response.RequestResp;
 import com.greenCycle.GreenCycle.domain.entities.RequestEntity;
@@ -19,14 +26,17 @@ import com.greenCycle.GreenCycle.util.enums.SortType;
 import com.greenCycle.GreenCycle.util.enums.exception.BadRequestException;
 import com.greenCycle.GreenCycle.util.enums.messages.ErrorMessages;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class RequestService implements IRequestService {
 
     @Autowired
     private final RequestRepository requestRepository;
+
     @Autowired
     private final UserRepository userRepository;
 
@@ -36,7 +46,6 @@ public class RequestService implements IRequestService {
         RequestEntity entity = this.requestToEntity(request);
         // entity.setCertificate(new CertificateEntity());
         return this.entityToResponse(this.requestRepository.save(entity));
-
     }
 
     @Override
@@ -84,7 +93,7 @@ public class RequestService implements IRequestService {
 
         BasicUserResp basicUser = this.EntityBasicToUserResp(entity.getUser());
         RequestResp requestResp = new RequestResp();
-        
+
         BeanUtils.copyProperties(entity, requestResp);
         requestResp.setUser(basicUser);
 
@@ -115,7 +124,27 @@ public class RequestService implements IRequestService {
     }
 
     private RequestEntity find(Long id) {
-        return this.requestRepository.findById(id).orElseThrow(() -> new BadRequestException(ErrorMessages.idNotFound("Request")));
+        return this.requestRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException(ErrorMessages.idNotFound("Request")));
+    }
+
+    public List<SummaryReq> getRequestsForLastFiveMonths() {
+        // Calcular la fecha de inicio y fin
+        LocalDateTime startDate = LocalDateTime.now().minusMonths(4).with(TemporalAdjusters.firstDayOfMonth())
+                .with(LocalTime.MIN);
+        LocalDateTime endDate = LocalDateTime.now().with(LocalTime.MAX);
+
+        // Realizar la consulta y mapear los resultados a RequestSummary usando el
+        return requestRepository.findRequestsByDateRange(startDate, endDate).stream()
+                .map(this::mapToObject)
+                .collect(Collectors.toList());
+    }
+
+    private SummaryReq mapToObject(Object[] result) {
+        return SummaryReq.builder()
+                .month((String) result[0])
+                .totalRequests(((Number) result[1]).longValue())
+                .build();
     }
 
 }

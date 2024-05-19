@@ -1,5 +1,6 @@
 package com.greenCycle.GreenCycle.api.controller;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenCycle.GreenCycle.api.dto.request.RequestReq;
+import com.greenCycle.GreenCycle.api.dto.request.SummaryReq;
 import com.greenCycle.GreenCycle.api.dto.response.RequestResp;
 import com.greenCycle.GreenCycle.infraestructure.abstract_services.IRequestService;
 import com.greenCycle.GreenCycle.util.enums.SortType;
@@ -32,7 +34,7 @@ import lombok.AllArgsConstructor;
 public class RequestController {
 
     private final IRequestService requestService;
-
+   
     // Anotacion para obtener
     @GetMapping(path = "/{id}")
     public ResponseEntity<RequestResp> getById(
@@ -84,5 +86,13 @@ public class RequestController {
         this.requestService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    //Obtener solicitudes de los ultimos cinco meses 
+    @GetMapping("/last-five-months")
+    public ResponseEntity<List<SummaryReq>> getRequestsForLastFiveMonths() {
+        List<SummaryReq> requestSummaries = requestService.getRequestsForLastFiveMonths();
+        return ResponseEntity.ok(requestSummaries);
+    }
+    
 
 }
