@@ -3,6 +3,7 @@ package com.greenCycle.GreenCycle.domain.entities;
 import java.time.LocalDateTime;
 
 import com.greenCycle.GreenCycle.util.enums.StatusRequest;
+import com.greenCycle.GreenCycle.util.enums.TypeWaste;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,7 +36,7 @@ public class RequestEntity {
     private String quantityUnit;
     @Column(length = 100, nullable = false)
     @Enumerated(EnumType.STRING)
-    private String typeWaste;
+    private TypeWaste typeWaste;
     @Column(length = 100, nullable = false)
     private String description;
     @Column(nullable = false)
