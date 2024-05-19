@@ -11,12 +11,14 @@ import org.springframework.stereotype.Repository;
 import com.greenCycle.GreenCycle.domain.entities.RequestEntity;
 
 @Repository
+
 public interface RequestRepository extends JpaRepository<RequestEntity, Long> {
-    @Query(value = "SELECT MONTHNAME(r.dateTime) AS month, COUNT(*) AS totalRequests" +
-            "FROM requests r " +
-            "WHERE r.dateTime >= :startDate " +
-            "AND r.dateTime <= :endDate " +
-            "GROUP BY MONTHNAME(r.dateTime)", nativeQuery = true)
+        @Query(value = "SELECT MONTHNAME(r.date_time) AS month, COUNT(*) AS totalRequests " + // Añadido espacio después de totalRequests
+        "FROM requests r " +
+        "WHERE r.date_time >= :startDate " +
+        "AND r.date_time <= :endDate " +
+        "GROUP BY MONTHNAME(r.date_time)", nativeQuery = true)
+
 
     List<Object[]> findRequestsByDateRange(
             @Param("startDate") LocalDateTime startDate,
