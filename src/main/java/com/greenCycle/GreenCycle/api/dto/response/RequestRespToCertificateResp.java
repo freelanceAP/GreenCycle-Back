@@ -21,6 +21,7 @@ public class RequestRespToCertificateResp {
     private String description;
     private LocalDateTime dateTime;
     private StatusRequest status;
+    private String pickupAddress;
     private BasicUserResp user;  
 
 }

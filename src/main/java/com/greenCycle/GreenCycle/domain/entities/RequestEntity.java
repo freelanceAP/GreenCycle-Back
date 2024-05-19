@@ -42,6 +42,8 @@ public class RequestEntity {
     private LocalDateTime dateTime;
     @Enumerated(EnumType.STRING)
     private StatusRequest status;
+    @Column(length = 100)
+    private String pickupAddress; //Dirección de recogida
 
     /*RELACIONES*/
     //Una solicitud puede tener un certificado

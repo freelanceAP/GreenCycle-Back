@@ -31,4 +31,6 @@ public class RequestReq {
     @NotNull(message = "Especifique el estado")
     private StatusRequest status;
     private Long userId;
+    @NotBlank(message = "Especifique la dirección de recogida")
+    private String pickupAddress;
 }
