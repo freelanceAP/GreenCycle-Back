@@ -129,13 +129,24 @@ public class RequestService implements IRequestService {
     }
 
     public List<SummaryReq> getRequestsForLastFiveMonths() {
-        // Calcular la fecha de inicio y fin
+        LocalDateTime startDate = LocalDateTime.now().minusMonths(4).with(TemporalAdjusters.firstDayOfMonth())
+                .with(LocalTime.MIN);
+        LocalDateTime endDate = LocalDateTime.now().with(LocalTime.MAX);
+        
+        return mapToObjectList(requestRepository.findRequestsByDateRange(startDate, endDate));
+    }
+
+    @Override
+    public List<SummaryReq> getRequestsForLastFiveMonthsById(Long id) {
         LocalDateTime startDate = LocalDateTime.now().minusMonths(4).with(TemporalAdjusters.firstDayOfMonth())
                 .with(LocalTime.MIN);
         LocalDateTime endDate = LocalDateTime.now().with(LocalTime.MAX);
 
-        // Realizar la consulta y mapear los resultados a RequestSummary usando el
-        return requestRepository.findRequestsByDateRange(startDate, endDate).stream()
+        return mapToObjectList(requestRepository.findRequestsByDateRangeById(id, startDate, endDate));
+    }
+
+    private List<SummaryReq> mapToObjectList(List<Object[]> results) {
+        return results.stream()
                 .map(this::mapToObject)
                 .collect(Collectors.toList());
     }
