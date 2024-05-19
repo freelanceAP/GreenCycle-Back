@@ -23,6 +23,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+
 public class CertificateService implements ICertificateService {
 
     @Autowired
