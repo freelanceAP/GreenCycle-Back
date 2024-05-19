@@ -92,13 +92,10 @@ public class RequestController {
     }
 
     @GetMapping("/last-five-months/{id}")
-    public ResponseEntity<List<SummaryReq>> getRequestsForLastFiveMonthsById(@PathVariable Long id) {
-        List<SummaryReq> generalRequests = requestService.getRequestsForLastFiveMonths();
-        List<SummaryReq> requestsById = requestService.getRequestsForLastFiveMonthsById(id);
-        
-        generalRequests.addAll(requestsById); // Combinar ambas listas
-        
-        return ResponseEntity.ok(generalRequests);
+    public ResponseEntity<List<SummaryReq>> getRequestsByUserId(@PathVariable long Id) {
+        List<SummaryReq> requestSummaries = requestService.getRequestsForLastFiveMonthsById(Id);
+        return ResponseEntity.ok(requestSummaries);
     }
+    
 
 }

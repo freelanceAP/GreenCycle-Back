@@ -34,7 +34,6 @@ public class RequestEntity {
     private long id;
     @Column(length = 100, nullable = false)
     private String quantityUnit;
-    @Column(length = 100, nullable = false)
     @Enumerated(EnumType.STRING)
     private TypeWaste typeWaste;
     @Column(length = 100, nullable = false)

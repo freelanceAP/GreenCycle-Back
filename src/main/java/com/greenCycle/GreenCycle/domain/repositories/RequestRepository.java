@@ -13,8 +13,7 @@ import com.greenCycle.GreenCycle.domain.entities.RequestEntity;
 @Repository
 
 public interface RequestRepository extends JpaRepository<RequestEntity, Long> {
-        @Query(value = "SELECT MONTHNAME(r.date_time) AS month, COUNT(*) AS totalRequests " + // Añadido espacio después
-                                                                                              // de totalRequests
+        @Query(value = "SELECT MONTHNAME(r.date_time) AS month, COUNT(*) AS totalRequests " + 
                         "FROM requests r " +
                         "WHERE r.date_time >= :startDate " +
                         "AND r.date_time <= :endDate " +
