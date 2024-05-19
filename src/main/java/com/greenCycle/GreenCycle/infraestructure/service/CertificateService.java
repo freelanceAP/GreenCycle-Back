@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.greenCycle.GreenCycle.api.dto.request.CertificateReq;
@@ -90,13 +91,15 @@ public class CertificateService implements ICertificateService {
 
         System.out.println(entity);
         RequestRespToCertificateResp requestRespToCertificateResp = new RequestRespToCertificateResp();
-        BeanUtils.copyProperties(entity.getRequest(), requestRespToCertificateResp);
+         BeanUtils.copyProperties(entity.getRequest(), requestRespToCertificateResp);
+
+
 
         return CertificateResp.builder()
                 .id(entity.getId())
                 .dateTime(entity.getDateTime())
                 .description(entity.getDescription())
-                .request(requestRespToCertificateResp)
+                // .request(requestRespToCertificateResp)
                 .build();
 
     }
@@ -127,4 +130,6 @@ public class CertificateService implements ICertificateService {
         return this.certificateRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException(ErrorMessages.idNotFound("certificados")));
     }
+
+
 }

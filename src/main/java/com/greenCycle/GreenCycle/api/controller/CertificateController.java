@@ -53,6 +53,8 @@ public class CertificateController {
         return ResponseEntity.ok(cetificateService.findAll());
     }
 
+    
+
     // Anotacion para actualizar
     @PutMapping(path = "/{id}")
     public ResponseEntity<CertificateResp> update(
