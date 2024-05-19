@@ -40,7 +40,7 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private RoleUser role;
     @Column(length = 20, nullable = false)
-    private long nit;
+    private String nit;
     @Column(length = 100)
     private String address;
     @Column(length = 20)
@@ -59,6 +59,6 @@ public class UserEntity {
     //Un usuario puede tener muchas solicitudes
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<RequestEntity> requests;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = false)
+    private List<RequestEntity> requests; //Lista de las solicitudes que tiene el usuario 
 }

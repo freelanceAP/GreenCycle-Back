@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import com.greenCycle.GreenCycle.util.enums.StatusRequest;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -32,11 +31,11 @@ public class RequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String quantityUnit;
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String typeWaste;
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String description;
     @Column(nullable = false)
     private LocalDateTime dateTime;
@@ -45,11 +44,11 @@ public class RequestEntity {
 
     /*RELACIONES*/
     //Una solicitud puede tener un certificado
-    @OneToOne(mappedBy = "request", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "request", fetch = FetchType.LAZY)
     private  CertificateEntity certificate; 
 
     //Muchas solicitudes puede tener un usuario
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user; 
 }

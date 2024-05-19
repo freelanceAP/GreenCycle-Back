@@ -17,5 +17,5 @@ public class BasicUserResp {
     private String userName;
     private String email;
     private RoleUser role;
-    private long nit;
+    private String nit;
 }
