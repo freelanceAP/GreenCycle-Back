@@ -129,6 +129,7 @@ public class RequestService implements IRequestService {
                 .orElseThrow(() -> new BadRequestException(ErrorMessages.idNotFound("Request")));
     }
 
+    @Override
     public List<SummaryReq> getRequestsForLastFiveMonths() {
         LocalDateTime startDate = LocalDateTime.now().minusMonths(4).with(TemporalAdjusters.firstDayOfMonth())
                 .with(LocalTime.MIN);
