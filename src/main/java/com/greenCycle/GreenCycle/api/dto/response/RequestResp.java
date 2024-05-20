@@ -23,6 +23,7 @@ public class RequestResp {
     private LocalDateTime dateTime;
     private StatusRequest status;
     private BasicCertificateResp certificate; 
+    private String pickupAddress;
     //Se usa BasicUserResp en vez de UserEntity
     private BasicUserResp user;  //->Muestra unicamente la informacion basica del usuario, asociada a la solicitud
 

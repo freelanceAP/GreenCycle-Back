@@ -119,6 +119,7 @@ public class RequestService implements IRequestService {
                 .description(request.getDescription())
                 .dateTime(request.getDateTime())
                 .status(request.getStatus())
+                .pickupAddress(request.getPickupAddress())
                 .user(this.userRepository.findById(request.getUserId()).orElseThrow())
                 .build();
     }

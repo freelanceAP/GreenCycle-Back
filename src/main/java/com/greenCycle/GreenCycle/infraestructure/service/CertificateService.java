@@ -11,6 +11,7 @@ import com.greenCycle.GreenCycle.api.dto.request.CertificateReq;
 import com.greenCycle.GreenCycle.api.dto.response.CertificateResp;
 import com.greenCycle.GreenCycle.api.dto.response.RequestRespToCertificateResp;
 import com.greenCycle.GreenCycle.domain.entities.CertificateEntity;
+import com.greenCycle.GreenCycle.domain.entities.RequestEntity;
 import com.greenCycle.GreenCycle.domain.repositories.CertificateRepository;
 import com.greenCycle.GreenCycle.domain.repositories.RequestRepository;
 import com.greenCycle.GreenCycle.infraestructure.abstract_services.ICertificateService;
@@ -75,18 +76,17 @@ public class CertificateService implements ICertificateService {
     }
 
     private CertificateResp entityToresp(CertificateEntity entity) {
+;
 
-        System.out.println(entity);
+         RequestRespToCertificateResp requestRespToCertificateResp =
+         this.EntityRequestToCertResp(entity.getRequest());
+         CertificateResp certificateResp = new CertificateResp();
 
-        // RequestRespToCertificateResp requestRespToCertificateResp =
-        // this.EntityRequestToCertResp(entity.getRequest());
-        // CertificateResp certificateResp = new CertificateResp();
+         BeanUtils.copyProperties(entity, certificateResp);
+         certificateResp.setRequest(requestRespToCertificateResp);
 
-        // BeanUtils.copyProperties(entity, certificateResp);
-        // certificateResp.setRequest(requestRespToCertificateResp);
-
-        // return certificateResp;
-
+         return certificateResp;
+   /*
         System.out.println(entity);
         RequestRespToCertificateResp requestRespToCertificateResp = new RequestRespToCertificateResp();
          BeanUtils.copyProperties(entity.getRequest(), requestRespToCertificateResp);
@@ -97,23 +97,25 @@ public class CertificateService implements ICertificateService {
                 .id(entity.getId())
                 .dateTime(entity.getDateTime())
                 .description(entity.getDescription())
-                // .request(requestRespToCertificateResp)
+                .request(requestRespToCertificateResp)
                 .build();
+
+              */
 
     }
 
-    // private RequestRespToCertificateResp EntityRequestToCertResp(RequestEntity entity){
+     private RequestRespToCertificateResp EntityRequestToCertResp(RequestEntity entity){
 
-    //     return RequestRespToCertificateResp.builder()
-    //             .id(entity.getId())
-    //             .quantityUnit(entity.getQuantityUnit())
-    //             .typeWaste(entity.getTypeWaste())
-    //             .description(entity.getDescription())
-    //             .dateTime(entity.getDateTime())
-    //             .status(entity.getStatus())
-    //             .build();
+         return RequestRespToCertificateResp.builder()
+                 .id(entity.getId())
+                 .quantityUnit(entity.getQuantityUnit())
+                 .typeWaste(entity.getTypeWaste())
+                 .description(entity.getDescription())
+                 .dateTime(entity.getDateTime())
+                 .status(entity.getStatus())
+                 .build();
 
-    // }
+     }
 
     private CertificateEntity requestToentity(CertificateReq resquest) {
 
