@@ -65,7 +65,7 @@ public class CertificateService implements ICertificateService {
 
     @Override
     public Page<CertificateResp> getAll(int page, int size, SortType sortType) {
-        // TODO Auto-generated method stub
+   
         throw new UnsupportedOperationException("Unimplemented method 'getAll'");
     }
 

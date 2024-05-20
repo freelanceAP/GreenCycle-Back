@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenCycle.GreenCycle.api.dto.request.RequestReq;
+import com.greenCycle.GreenCycle.api.dto.request.StatusCountReq;
 import com.greenCycle.GreenCycle.api.dto.request.SummaryReq;
 import com.greenCycle.GreenCycle.api.dto.response.RequestResp;
 import com.greenCycle.GreenCycle.infraestructure.abstract_services.IRequestService;
@@ -92,10 +93,14 @@ public class RequestController {
     }
 
     @GetMapping("/last-five-months/{id}")
-    public ResponseEntity<List<SummaryReq>> getRequestsByUserId(@PathVariable long Id) {
-        List<SummaryReq> requestSummaries = requestService.getRequestsForLastFiveMonthsById(Id);
+    public ResponseEntity<List<SummaryReq>> getRequestsByUserId(@PathVariable long id) {
+        List<SummaryReq> requestSummaries = requestService.getRequestsForLastFiveMonthsById(id);
         return ResponseEntity.ok(requestSummaries);
     }
     
-
+    @GetMapping("/status-counts")
+    public StatusCountReq getStatusCount() {
+        return requestService.getTotalRequestsByStatus();
+    }
+    
 }
