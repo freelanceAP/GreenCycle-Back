@@ -27,7 +27,7 @@ public class RequestReq {
     @NotBlank(message = "Hace falta la descripción.")
     private String description;
     @NotNull(message = "Especifique la fecha y la hora.")
-    // @FutureOrPresent(message = "La fecha no puede ser inferior a la actual.")
+    @FutureOrPresent(message = "La fecha no puede ser inferior a la actual.")
     private LocalDateTime dateTime;
     @NotNull(message = "Especifique el estado")
     private StatusRequest status;

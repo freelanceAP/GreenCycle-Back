@@ -11,6 +11,7 @@ import com.greenCycle.GreenCycle.api.dto.request.CertificateReq;
 import com.greenCycle.GreenCycle.api.dto.response.CertificateResp;
 import com.greenCycle.GreenCycle.api.dto.response.RequestRespToCertificateResp;
 import com.greenCycle.GreenCycle.domain.entities.CertificateEntity;
+import com.greenCycle.GreenCycle.domain.entities.RequestEntity;
 import com.greenCycle.GreenCycle.domain.repositories.CertificateRepository;
 import com.greenCycle.GreenCycle.domain.repositories.RequestRepository;
 import com.greenCycle.GreenCycle.infraestructure.abstract_services.ICertificateService;
@@ -103,18 +104,18 @@ public class CertificateService implements ICertificateService {
 
     }
 
-    // private RequestRespToCertificateResp EntityRequestToCertResp(RequestEntity entity){
+     private RequestRespToCertificateResp EntityRequestToCertResp(RequestEntity entity){
 
-    //     return RequestRespToCertificateResp.builder()
-    //             .id(entity.getId())
-    //             .quantityUnit(entity.getQuantityUnit())
-    //             .typeWaste(entity.getTypeWaste())
-    //             .description(entity.getDescription())
-    //             .dateTime(entity.getDateTime())
-    //             .status(entity.getStatus())
-    //             .build();
+         return RequestRespToCertificateResp.builder()
+                 .id(entity.getId())
+                 .quantityUnit(entity.getQuantityUnit())
+                 .typeWaste(entity.getTypeWaste())
+                 .description(entity.getDescription())
+                 .dateTime(entity.getDateTime())
+                 .status(entity.getStatus())
+                 .build();
 
-    // }
+     }
 
     private CertificateEntity requestToentity(CertificateReq resquest) {
 

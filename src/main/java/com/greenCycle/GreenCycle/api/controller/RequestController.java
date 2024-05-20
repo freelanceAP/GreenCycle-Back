@@ -48,7 +48,7 @@ public class RequestController {
     @GetMapping
     public ResponseEntity<Page<RequestResp>> getAll(
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "7") int size,
+            @RequestParam(defaultValue = "1000") int size,
             @RequestHeader(required = false) SortType sortType) {
 
         if (Objects.isNull(sortType))
