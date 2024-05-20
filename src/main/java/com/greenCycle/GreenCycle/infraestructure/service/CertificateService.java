@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.greenCycle.GreenCycle.api.dto.request.CertificateReq;
@@ -77,18 +76,17 @@ public class CertificateService implements ICertificateService {
     }
 
     private CertificateResp entityToresp(CertificateEntity entity) {
+;
 
-        System.out.println(entity);
+         RequestRespToCertificateResp requestRespToCertificateResp =
+         this.EntityRequestToCertResp(entity.getRequest());
+         CertificateResp certificateResp = new CertificateResp();
 
-        // RequestRespToCertificateResp requestRespToCertificateResp =
-        // this.EntityRequestToCertResp(entity.getRequest());
-        // CertificateResp certificateResp = new CertificateResp();
+         BeanUtils.copyProperties(entity, certificateResp);
+         certificateResp.setRequest(requestRespToCertificateResp);
 
-        // BeanUtils.copyProperties(entity, certificateResp);
-        // certificateResp.setRequest(requestRespToCertificateResp);
-
-        // return certificateResp;
-
+         return certificateResp;
+   /*
         System.out.println(entity);
         RequestRespToCertificateResp requestRespToCertificateResp = new RequestRespToCertificateResp();
          BeanUtils.copyProperties(entity.getRequest(), requestRespToCertificateResp);
@@ -99,8 +97,10 @@ public class CertificateService implements ICertificateService {
                 .id(entity.getId())
                 .dateTime(entity.getDateTime())
                 .description(entity.getDescription())
-                // .request(requestRespToCertificateResp)
+                .request(requestRespToCertificateResp)
                 .build();
+
+              */
 
     }
 
