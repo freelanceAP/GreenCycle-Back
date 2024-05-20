@@ -37,7 +37,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<Page<UserResp>> getAll(
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "7") int size,
             @RequestHeader(required = false) SortType sortType) {
 
         if (Objects.isNull(sortType))
