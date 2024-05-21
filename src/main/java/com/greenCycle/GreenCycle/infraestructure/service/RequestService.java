@@ -15,7 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.greenCycle.GreenCycle.api.dto.request.RequestReq;
-import com.greenCycle.GreenCycle.api.dto.request.StatusCountReq;
 import com.greenCycle.GreenCycle.api.dto.request.SummaryReq;
 import com.greenCycle.GreenCycle.api.dto.response.BasicUserResp;
 import com.greenCycle.GreenCycle.api.dto.response.RequestResp;
@@ -161,16 +160,5 @@ public class RequestService implements IRequestService {
                 .build();
     }
 
-    public StatusCountReq getTotalRequestsByStatus() {
-        StatusCountReq results = requestRepository.countRequestsByStatus();
-        return StatusCountReq.builder()
-        .totalRequest(((Number)results[0]).longValue())
-        .totalPending(((Number) results[1]).longValue())
-        .totalAccepted(((Number) results[2]).longValue())
-        .totalInCollection(((Number) results[3]).longValue())
-        .totalInDisposition(((Number) results[4]).longValue())
-        .totalFinished(((Number) results[5]).longValue())
-        .build();
-
-    }
+   
 }
